@@ -17,10 +17,9 @@ import os
 import re
 import time
 from typing import Union
-
-import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError, RequestException, Timeout
+from security import safe_requests
 
 
 def fetch_and_extract_content(url: str,
@@ -44,7 +43,7 @@ def fetch_and_extract_content(url: str,
 
     try:
         # Fetch the page content with a timeout
-        response = requests.get(url, timeout=timeout_seconds)
+        response = safe_requests.get(url, timeout=timeout_seconds)
         response.raise_for_status()  # Raise an exception for HTTP errors
 
         # Parse the HTML content
